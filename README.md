@@ -1,2 +1,0 @@
-# CryptoNotifi
-Cryptocurrency Twitter Bot
