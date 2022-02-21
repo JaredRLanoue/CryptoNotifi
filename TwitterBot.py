@@ -1,7 +1,6 @@
 from requests import Request, Session
 import json
 import tweepy
-import time
 
 # Used coinmarketcap because it's the most popular and reliable, and also used tweepy because it has great documentation.
 def apiSetUp(url):
@@ -16,13 +15,10 @@ def apiSetUp(url):
         'slug': 'bitcoin',
         'convert': 'USD'
     }
-
-    session = Session()
     headers = {
         'Accepts': 'application/json',
         'X-CMC_PRO_API_KEY': '25e2d061-8cd8-4bfb-ad4e-acb3301789f3',
     }
-
     session = Session()
     session.headers.update(headers)
     return session, parameters, api #Session is the session's details, parameters are what we are searching for in the session, and the api is the twitter api
@@ -43,8 +39,6 @@ def main():
     priceData, percentChangeData = collectData(session, parameters, url)
     results = formatResults(priceData, percentChangeData)
     api.update_status(results)
-    #time.sleep(43200)
+    raise SystemExit #Had an error where a tweet would repeat somehow, hoping this fixes my issue otherwise it's because of the Heroku software
 
 main()
-
-# get api access, grab response from either coinmarketcap or coingecko, grab specific data and return it, send data to formatter, printer
